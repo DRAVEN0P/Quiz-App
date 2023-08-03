@@ -6,25 +6,20 @@ class ResultPage extends StatelessWidget {
   const ResultPage(this.switchScreen, {required this.recordAnswer, super.key});
   final List<String> recordAnswer;
   final Function() switchScreen;
-  List<Map<String, String>> getSummaryData() {
-    final List<Map<String, String>> summary = [];
-    String check(String a, String b){
-      if(a == b) return "true";
-      return "false";
-    }
+  List<Map<String, Object>> getSummaryData() {
+    final List<Map<String, Object>> summary = [];
     for (int i = 0; i < recordAnswer.length; i++) {
       summary.add({
-        "question_index": i.toString(),
+        "question_index": i,
         "question": questions[i].text,
         "correct_ans": questions[i].ans[0],
         "answer": recordAnswer[i],
-        "is_correct":check(questions[i].ans[0].toString(),recordAnswer[i].toString())
       });
     }
 
     return summary;
   }
-
+ 
   @override
   Widget build(BuildContext context) {
     final summaryData = getSummaryData();
@@ -85,7 +80,7 @@ class ResultPage extends StatelessWidget {
 
 class SummaryAns extends StatelessWidget {
   const SummaryAns(this.summary, {super.key});
-  final List<Map<String, String>> summary;
+  final List<Map<String, Object>> summary;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -116,7 +111,7 @@ class SummaryAns extends StatelessWidget {
                 Text(
                   data["answer"].toString(),
                   style: const TextStyle(
-                    color:  ans ? Colors.green : Colors.red,
+                    color:  true ? Colors.green : Colors.red,
                     fontSize: 17,
                     fontWeight: FontWeight.bold,
                   ),
@@ -130,6 +125,7 @@ class SummaryAns extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+                Text(ans.toString()),
               ],
             ),
           ),
