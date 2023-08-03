@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:second_prj/data/all_ques.dart';
 
@@ -19,7 +18,7 @@ class ResultPage extends StatelessWidget {
 
     return summary;
   }
- 
+
   @override
   Widget build(BuildContext context) {
     final summaryData = getSummaryData();
@@ -79,58 +78,75 @@ class ResultPage extends StatelessWidget {
 // ----------------------------------------------------------------
 
 class SummaryAns extends StatelessWidget {
-  const SummaryAns(this.summary, {super.key});
+  const SummaryAns(this.summary, {Key? key}) : super(key: key);
   final List<Map<String, Object>> summary;
+
   @override
   Widget build(BuildContext context) {
     return Column(
-        children: summary.map((data) {
-          bool isTrue(){
-            if(data["correct_ans"] == data["ans"]){
-              return true;
-            }
-            return false;
-          }
-          bool ans = isTrue();
-      return Row(
-        children: [
-          Text(((data["question_index"] as int) + 1).toString()),
-          Expanded(
-            child: Column(
-              children: [
-                Text(
-                  data["question"].toString(),
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.center,
+      children: summary.map((data) {
+        bool isTrue() {
+          return data["correct_ans"] == data["answer"];
+        }
+
+        bool ans = isTrue();
+        return Row(
+          children: [
+            Container(
+              padding: const EdgeInsetsDirectional.all(10),
+              decoration: BoxDecoration(
+                color: ans ? Colors.green:  Colors.red,
+                borderRadius: BorderRadius.circular(40)
+              ),
+              height: 40,
+              child: Text(
+                ((data["question_index"] as int) + 1).toString(),
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
                 ),
-                const SizedBox(height: 5),
-                Text(
-                  data["answer"].toString(),
-                  style: const TextStyle(
-                    color:  true ? Colors.green : Colors.red,
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 5),
-                Text(
-                  data["correct_ans"].toString(),
-                  style: const TextStyle(
-                    color: Color.fromARGB(255, 114, 255, 119),
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(ans.toString()),
-              ],
+                textAlign: TextAlign.center,
+              ),
             ),
-          ),
-        ],
-      );
-    }).toList());
+            Expanded(
+              child: Column(
+                children: [
+                  Text(
+                    data["question"].toString(),
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    data["answer"].toString(),
+                    style: TextStyle(
+                      color: ans
+                          ? const Color.fromARGB(255, 114, 255, 119)
+                          : const Color.fromARGB(255, 255, 80, 67),
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    data["correct_ans"].toString(),
+                    style: const TextStyle(
+                      color: Color.fromARGB(255, 114, 255, 119),
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      }).toList(),
+    );
   }
 }

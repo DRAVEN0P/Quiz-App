@@ -22,10 +22,16 @@ class _QuizState extends State<Quiz> {
 
   void switchScreen(){
     setState(() {
-      activeScreen = QuestionsScreen(recordAnswer: recordAnswer,);
+      activeScreen = QuestionsScreen(home: home ,recordAnswer: recordAnswer,);
     });
   }
 
+  void home (){
+    setState(() {
+      activeScreen = HomePage(switchScreen);
+    });
+    submittedAnser = []; 
+  }
   void recordAnswer(String ans){
     submittedAnser.add(ans);
     if(submittedAnser.length == questions.length){

@@ -3,9 +3,10 @@ import 'package:second_prj/data/answer_button.dart';
 import 'package:second_prj/data/all_ques.dart';
 
 class QuestionsScreen extends StatefulWidget {
-  const QuestionsScreen({required this.recordAnswer, super.key});
+  const QuestionsScreen({required this.home ,required this.recordAnswer, super.key});
 
   final void Function(String answer) recordAnswer;
+  final void Function() home;
   @override
   State<QuestionsScreen> createState() => _QuestionsScreenState();
 }
@@ -50,6 +51,20 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                 onTap: (){ answerSubmit(answer); },
               );
             }),
+            const SizedBox(height: 30,),
+            TextButton(
+          onPressed: widget.home,
+          style: TextButton.styleFrom(
+              foregroundColor: Colors.white,
+              backgroundColor: const Color.fromARGB(255, 167, 78, 183),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 11),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(40),
+              ),
+              textStyle:
+                  const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+          child: const Text("Exit"),
+        ),
           ],
         ),
       ),
